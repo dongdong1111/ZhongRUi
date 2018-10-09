@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        .header {
+            height: 80px;
+            text-align: center;
+            line-height: 35px;
+            background: #f6f5fa;
+            position: relative;
+        }
+        #work-container{
+            background: #fff;
+        }
+        #icon{
+            /*background: #f2f2f2;*/
+            width: 95%;
+            position: relative;
+        }
+        #icon li{
+            height: 50px;
+            /*text-align: center;*/
+            line-height: 60px;
+            margin-left: 10px;
+            font-size: 18px;
+        }
+        .item1{
+            position: absolute;
+            left: 0;
+        }
+        .item3{
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .search{
+            width: 95%;
+            height: 20px;
+            text-align: center;
+            color: #999;
+            background: #ffffff;
+            position: relative;
+            margin: 0 auto;
+        }
+        .search input{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .search input::-webkit-input-placeholder{
+            text-align: center;
+        }
+        .search img{
+            width: 20px;
+            height: 20px;
+        }
+        #list li{
+            height: 36px;
+            line-height: 36px;
+            margin-top: 10px;
+            margin-left: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        #footer{
+            height: 60px;
+            margin-top: 20px;
+            position: relative;
+        }
+        .save{
+            width: 70px;
+            height: 30px;
+            background: #4f91ff;
+            color: #ffffff;
+            border-radius: 25px;
+            text-align: center;
+            line-height: 30px;
+            position: absolute;
+            right: 10px;
+            border: 0;
+        }
+        .remove{
+            width: 70px;
+            position: absolute;
+            right: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 0;
+            background: #ffffff;
+            color: #333;
+        }
+        /*.list-selected{*/
+            /*color: orange;*/
+        /*}*/
+        #list .selected{
+            color: orange;
+        }
+        .clearfix::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id="work-container">
+        <div class="header">
+            <ul id="icon" class="clearfix">
+                <li class="item1">X</li>
+                <li class="item2">选择实习岗位</li>
+                <li class="item3">...</li>
+            </ul>
+            <div class="search">
+                <!--<img src="image/search.png" alt=""/>-->
+                <input class="search-list" type="text" placeholder="搜索岗位"/>
+            </div>
+        </div>
+        <form action="test.html" method="get" id="nameform">
+            <ul id="list">
+                <li>汽车修理</li>
+                <li>汽车配件</li>
+                <li>机械工</li>
+                <li>汽车销售</li>
+                <li>售后服务</li>
+                <li>汽车喷漆与维修</li>
+                <li>汽车配件</li>
+                <li>汽车美容与养护</li>
+                <li>汽车销售</li>
+                <li>售后服务</li>
+                <li>汽车美容与养护</li>
+            </ul>
+        </form>
+        <div id="footer">
+            <button class="remove">清空</button>
+            <button class="save" form="nameform" type="button" value="submit">保存</button>
+        </div>
+    </div>
+    <script src="js/jquery-1.12.4.js"></script>
+    <script>
+        //切換樣式
+        $('li').on('click', function() {
+//            $(this).addClass('list-selected');
+            $(this).toggleClass('selected');
+        });
+        //搜索崗位
+       $(function () {
+           $('.search-list').on('keyup', function () {
+               $('#list li').css('background','transparent');
+               if(this.value != ''){
+                   $('#list li:contains('+ this.value + ')').css('color','orange');
+               }
+           });
+       });
+        //  清空
+        $('.remove').on('click',function(){
+            $('.selected').remove();
+        });
+        //保存
+        $(".save").on("click",function(){
+            var arr = [];
+            var checked = $(".selected");
+            for(var i =0;i<checked.length;i++){
+                arr.push(checked[i].innerHTML)
+            }
+            var str = arr.join(",");
+            sessionStorage.setItem('job',str);
+            $("#work").text(str);
+            $("#container").show();
+            $(".work-container").hide();
+          // location.href="test.html"
+        });
+
+
+
+
+
+
+    </script>
+</body>
+</html>
